@@ -35,6 +35,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         
         cell.imagemFilme.layer.cornerRadius = 40
         cell.imagemFilme.clipsToBounds = true
+        self.tableView?.rowHeight = 110.0
         
         if(searching){
             cell.imagemFilme.image = filterList[indexPath.row].imagem
@@ -47,6 +48,22 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         }
         return cell
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "segueDetails"){
+            if let indexPath = tableView.indexPathForSelectedRow{
+                           if(searching){
+                               let filmSelected = self.filterList[indexPath.row]
+                               let viewControllerDestino = segue.destination as! DetailsViewController
+                               viewControllerDestino.filme = filmSelected
+                           }else{
+                               let filmSelected = self.listFilms[indexPath.row]
+                               let viewControllerDestino = segue.destination as! DetailsViewController
+                               viewControllerDestino.filme = filmSelected
+              }
+           }
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterContentForSearchText(searchText: searchText)
         searching = true

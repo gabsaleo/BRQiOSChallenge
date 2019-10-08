@@ -18,6 +18,7 @@
 		A114CD16234BB30C0054D948 /* BRQiOSChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114CD15234BB30C0054D948 /* BRQiOSChallengeUITests.swift */; };
 		A114CD24234BCD450054D948 /* Filme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114CD23234BCD450054D948 /* Filme.swift */; };
 		A114CD26234BD02A0054D948 /* cellCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A114CD25234BD02A0054D948 /* cellCustom.swift */; };
+		A15EB366234CEC15007A6C88 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15EB365234CEC15007A6C88 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A114CD17234BB30C0054D948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A114CD23234BCD450054D948 /* Filme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filme.swift; sourceTree = "<group>"; };
 		A114CD25234BD02A0054D948 /* cellCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cellCustom.swift; sourceTree = "<group>"; };
+		A15EB365234CEC15007A6C88 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				A114CCF9234BB30A0054D948 /* BRQiOSChallenge.xcdatamodeld */,
 				A114CD23234BCD450054D948 /* Filme.swift */,
 				A114CD25234BD02A0054D948 /* cellCustom.swift */,
+				A15EB365234CEC15007A6C88 /* DetailsViewController.swift */,
 			);
 			path = BRQiOSChallenge;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				A114CCF5234BB3090054D948 /* ViewController.swift in Sources */,
 				A114CCF1234BB3090054D948 /* AppDelegate.swift in Sources */,
 				A114CD24234BCD450054D948 /* Filme.swift in Sources */,
+				A15EB366234CEC15007A6C88 /* DetailsViewController.swift in Sources */,
 				A114CCF3234BB3090054D948 /* SceneDelegate.swift in Sources */,
 				A114CCFB234BB30A0054D948 /* BRQiOSChallenge.xcdatamodeld in Sources */,
 			);
