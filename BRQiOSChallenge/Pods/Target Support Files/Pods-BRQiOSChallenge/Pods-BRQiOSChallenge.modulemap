@@ -1,0 +1,6 @@
+framework module Pods_BRQiOSChallenge {
+  umbrella header "Pods-BRQiOSChallenge-umbrella.h"
+
+  export *
+  module * { export * }
+}

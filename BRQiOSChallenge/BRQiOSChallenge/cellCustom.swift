@@ -8,10 +8,8 @@
 
 import UIKit
 class cellCustom : UITableViewCell{
-    
-    @IBOutlet var imagemFilme: UIImageView!
-    @IBOutlet weak var nomeFilme: UILabel!
-    
-    @IBOutlet weak var subtituloFilme: UILabel!
-    
+
+      @IBOutlet weak var titleMovies: UILabel!
+      
+      @IBOutlet weak var yearMovies: UILabel!
 }

@@ -8,18 +8,33 @@
 
 import Foundation
 import UIKit
+import SDWebImage
+
 class DetailsViewController : UIViewController {
     
     @IBOutlet var imageFilm: UIImageView!
-    @IBOutlet weak var titleFilm: UILabel!
-    @IBOutlet weak var descriptionFilm: UILabel!
+   
+    @IBOutlet weak var titleMoviesDetails: UILabel!
     
-    var filme : Filme?
+    @IBOutlet weak var yearMoviesDetails: UILabel!
+    
+    @IBOutlet weak var typeMoviesDetails: UILabel!
+    var filme : Movie?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        imageFilm.image = filme?.imagem
-        titleFilm.text = filme?.titulo
-        descriptionFilm.text = filme?.descricao
-    }
+            super.viewDidLoad()
+            loadAttibutes()
+            loadImages()
+        }
+        func loadImages(){
+            
+            imageFilm.sd_imageIndicator = SDWebImageActivityIndicator.gray
+    //        imageView2.sd_imageIndicator = SDWebImageProgressIndicator.`default`
+            imageFilm.sd_setImage(with: URL(string:filme!.Poster))
+        }
+        func loadAttibutes(){
+            titleMoviesDetails.text = filme?.Title
+            yearMoviesDetails.text = filme?.Year
+            typeMoviesDetails.text = filme?.Type
+        }
 }

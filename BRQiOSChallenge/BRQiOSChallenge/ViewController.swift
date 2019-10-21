@@ -1,83 +1,81 @@
 //
 //  ViewController.swift
-//  BRQiOSChallenge
+//  parseJSONAlamoESwifty
 //
-//  Created by Gabriella Messias Aleo on 07/10/19.
+//  Created by Gabriella Messias Aleo on 16/10/19.
 //  Copyright © 2019 Gabriella Messias Aleo. All rights reserved.
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class ViewController: UITableViewController, UISearchBarDelegate {
+class ViewController:  UITableViewController, UISearchBarDelegate {
+    
+    var filmes = [Movie]()
+    var key = "532e4717"
+    var searching = false
 
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    var listFilms: [Filme] = []
-       var filterList = [Filme]()
-       var searching = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        listFilms.append(Filme(titulo: "Laranja Mecanica", descricao: "Muita violencia e muito moloko vellocet", image: UIImage(named:"laranjaMecanica")!))
-        listFilms.append(Filme(titulo: "Harry Potter", descricao: "Vc é um bruxo harry", image: UIImage(named: "harryPotter")!))
-        listFilms.append(Filme(titulo: "Jogos Vorazes", descricao: "jogos vorazs mesmo", image: UIImage(named: "jogosVorazes")!))
+    
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searching){
-            return filterList.count
-        }
-        return listFilms.count
+     
+        return filmes.count
     }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellReuse = "cellReuse"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuse, for: indexPath) as! cellCustom
-        
-        cell.imagemFilme.layer.cornerRadius = 40
-        cell.imagemFilme.clipsToBounds = true
+    
+        let cell=tableView.dequeueReusableCell(withIdentifier: cellReuse, for: indexPath) as! cellCustom
         self.tableView?.rowHeight = 110.0
+        let filme  = filmes[indexPath.row]
         
-        if(searching){
-            cell.imagemFilme.image = filterList[indexPath.row].imagem
-            cell.nomeFilme.text = filterList[indexPath.row].titulo
-            cell.subtituloFilme.text = filterList[indexPath.row].descricao
-        }else{
-            cell.imagemFilme.image = listFilms[indexPath.row].imagem
-            cell.nomeFilme.text = listFilms[indexPath.row].titulo
-            cell.subtituloFilme.text = listFilms[indexPath.row].descricao
-        }
+        
+        cell.titleMovies.text = filme.Title
+        cell.yearMovies.text = filme.Year
+     
         return cell
     }
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "segueDetails"){
-            if let indexPath = tableView.indexPathForSelectedRow{
-                           if(searching){
-                               let filmSelected = self.filterList[indexPath.row]
-                               let viewControllerDestino = segue.destination as! DetailsViewController
-                               viewControllerDestino.filme = filmSelected
-                           }else{
-                               let filmSelected = self.listFilms[indexPath.row]
-                               let viewControllerDestino = segue.destination as! DetailsViewController
-                               viewControllerDestino.filme = filmSelected
-              }
-           }
+        if(segue.identifier == "detailsMovie"){
+            
+            if let indice = tableView.indexPathForSelectedRow{
+                let movieSelected = self.filmes[indice.row]
+                let viewControllerDestino = segue.destination as! DetailsViewController
+                viewControllerDestino.filme = movieSelected
+            }
         }
     }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterContentForSearchText(searchText: searchText)
-        searching = true
-        tableView.reloadData()
-    }
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        if searchText != "" {
-            filterList = listFilms.filter {filme in
-                return  filme.titulo.lowercased().contains(searchText.lowercased())
-
+            
+            let search = searchText.replacingOccurrences(of: " ", with: "+")
+            let urlDataComplete = "http://www.omdbapi.com/?apikey=\(key)&s=\(search)"
+            searching = true
+           if search != ""{
+               filmes = filmes.filter {filme in
+                return  filme.Title.lowercased().contains(search)
             }
-        }else { self.filterList = self.listFilms}
-    }
-
-
+           }else{
+            self.tableView.reloadData()
+        }
+            getMovies(url: urlDataComplete)
+        }
+        func getMovies(url : String){
+            Alamofire.request(url, method: .get).responseData { (response) in
+                    guard let dados = response.data else { return }
+                    do{
+                    let decoder = JSONDecoder()
+                    let procurar = try decoder.decode(Movies.self, from: dados)
+                        self.filmes = procurar.Search
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }catch let error{
+                        print(error)
+                    }
+        }
+}
 }
 

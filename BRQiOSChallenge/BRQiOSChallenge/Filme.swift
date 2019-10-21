@@ -7,15 +7,9 @@
 //
 
 import UIKit
-class Filme{
-    var titulo: String!
-    var descricao: String!
-    var imagem: UIImage!
-    
-    
-    init(titulo:String, descricao:String, image: UIImage) {
-        self.titulo = titulo
-        self.descricao = descricao
-        self.imagem = image
-    }
+struct Filme : Codable{
+    var title:String
+}
+struct Filmes : Codable {
+    var results : [Filme]
 }
